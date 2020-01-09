@@ -3,14 +3,14 @@ This page descibes the steps necessary to build this project
 Prerequisites
 =============
 
-* Ensure, the following software is installed on your system:
+* Ensure that the following software is installed on your system:
 
   * git
   * docker
   * docker-compose
   * make
 
-  On a ubuntu (bionic) system this can for example be done using:
+  On a ubuntu (bionic) system this can, for example, be done using:
   `sudo apt install git docker.io docker-compose make`
 
 * Ensure your user is allowed to use docker (see https://docs.docker.com/install/linux/linux-postinstall/):
@@ -48,11 +48,11 @@ Build
 
 * Run `make debian-build` to create all debian packages for backend,
   frontend and command line tools. Please find the resulting artefacts
-  in the `./deb` folder. Note: Get youself some coffee - this needs time!
+  in the `./deb` folder. Note: Get youself some coffee - this takes time!
 
 * (after that) Run `make backend` to create the docker-images for the
   backend. The backend is also started locally for tests in this step.
-  If everything was fine, there should be the following docker images
+  If everything was ok, there should be the following docker images
   created (see with `docker images`):
 
   * reprepro-management-worker-service
