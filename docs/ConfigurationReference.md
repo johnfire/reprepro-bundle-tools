@@ -1,7 +1,7 @@
 This page describes the means we have to customize the reprepro-bundle-tools
 and the resulting dynamic reprepro configuration to your own needs.
 
-There are currently the following kinds of configuration mechanism's that can be
+There are currently the following kinds of configuration mechanisms that can be
 used:
 
 * [Templates](#templates) for the
@@ -193,12 +193,12 @@ Templates for the `bundle-compose`-tool
 The folder `templates/bundle_compose/` contains templates that are evaluated by
 `bundle-compose apply` for the creation of a reprepro configuration describing the
 *target* repository. All generated configuration files for the target
-repository can be found in `repo/target/conf`. The apt-repositoy itself is initially
+repository can be found in `repo/target/conf`. The apt-repository itself is initially
 empty. Using the command `reprepro -b repo/target update` causes reprepro to
 read the configuration from `repo/target/conf` and to create an apt-repository
 containing all our target-suites and their content.
 
-Please refer to `man reprepro` for a detailled description of the configuration
+Please refer to `man reprepro` for a detailed description of the configuration
 files for reprepro. This knowledge is required in order to understand the details
 of these config settings.
 
@@ -206,14 +206,14 @@ In order to create the *reprepro*-configuration, `bundle-compose apply` recursiv
 copies all files contained in `templates/bundle_compose/` into the target folder
 `repo/target/conf` respecting the following rules for different suffixes:
 
-* ***{name}.once***: The resulting file `{name}` is only created if it is not already
-                 existing. This is usefull to mark a template file to not override
+* ***{name}.once***: The resulting file `{name}` is only created if it does not already
+                 exist. This is useful to mark a template file to not override
                  an existing file in the target's conf directory.
 * ***{name}.symlink***: In the target's conf directory a symlink named `{name}` will
                  be created, pointing to the corresponding `{name}.symlink` file in
                  the templates dir. This means that the resulting file is not a
                  copy of the origin file but just a symlink to the origin file.
-                 This could be usefull to avoid copies of redundant files. We used
+                 This could be useful to avoid copies of redundant files. We used
                  this feature e.g. to define a common (and big) blacklist file.
 * ****.skel***:  This template defines a snippet of lines (a section) that is
                  typically repeated within some other result file. `*.skel`-files are
@@ -362,7 +362,7 @@ The apt-repos configuration in `.apt-repos`
 The reprepro-bundle tools expects an apt-repos configuration in the folder
 `.apt-repos` of your *reprepro-managment* project. This way we are able
 to describe all apt-repositories, their suites and other properties
-that are important for managing our own distribution. This includes in particular
+that are important for managing our own distribution. This includes, in particular:
 
 * suites from where we receive packages from (so called "supplier-suites"),
 * the apt-repositories (and suites) created for our bundles,
@@ -389,7 +389,7 @@ We for example add the tag "mybionic-supplier" to all suites that should be
 used as "supplier-suites" for our distribution *mybionic*.
 
 We use *Oid*s to share common properties between different suites and to write
-shorter config files. This is in particular done for describing the very dynamic
+shorter config files. This is done particularly for describing the very dynamic
 bundle suites and their common properties.
 
 Let's look at the details of writing apt-repos config files for the different types
@@ -439,10 +439,10 @@ unix user name (calling `bundle edit`).
 Defining bundle repositories for `bundle` and `bundle-compose`
 --------------------------------------------------------------
 
-Each bundle is a singular and independen apt-repository with one suite named
+Each bundle is a singular and independent apt-repository with one suite named
 like the target-distribuion (e.g. `mybionic`).
 
-Even since these bundle are independent, they share some common properties
+Even though these bundles are independent, they share some common properties
 and apt-repos allows us to define these common properties in one section inside
 an `.apt-repos/bundle.repos` file. Again, the name doesn't matter but it is the
 recommended one for bundles.
@@ -569,10 +569,10 @@ also expected in form of apt-repos tags. The following Tags should be used there
   bundles created for the targetDistribution `{dist}`. Each target suite
   needs exactly one *bundle-dist* and a target suite without that definition would
   be skipped by `bundle-compose apply`.
-* **`base-dist.{dist}`** (optional): With this tag it is possible to explicitely define
+* **`base-dist.{dist}`** (optional): With this tag it is possible to explicitly define
   a distribution `{dist}` that should be used as base-distribution. All base-suites
   tagged with the counterpart tag `bundle-base.{dist}` will then be merged into the
-  target suite. If the target suite doesn't define the tag `base-dist.{dist}` explicitely,
+  target suite. If the target suite doesn't define the tag `base-dist.{dist}` explicitly,
   the *base-dist* is determined from the tag `bundle-dist.{dist}`.
   This means the *base-dist* might differ from the *bundle-dist*, e.g. to provide
   different base distributions for *standard*- and for *unattended*-targets.
@@ -739,15 +739,15 @@ The key ***Password*** is optional and only evaluated by the `./bundle-compose` 
 line client, too. You would typically not define this keyword on project level
 (in the `.bundle-compose.trac.conf`) but in your user-private
 `~/.config/bundle-compose/trac.conf` file. If this key is provided, this password
-will be used and not be asked interactively.
+will be used and not be asked for interactively.
 
 
 ### `.bundle-compose.git-repos.conf`
 
 This file describes the git server settings for accessing your *reprepro-managment*
-project. It is read by the `bundle-compose-app` and needed for the "Login".
+project. It is read by the `bundle-compose-app` and is needed for the "Login".
 When logging in, the *reprepro-managment* project is cloned from the provided
-*RepoUrl* into a temporay directory. Everythin you do in your "Session" is then
+*RepoUrl* into a temporary directory. Everything you do in your "Session" is then
 done in that temporary directory.
 
 An example configuration is:
@@ -762,8 +762,8 @@ not possible to ask the users for Credentials at runtime - ssh is just supported
 a public key already registered at the ssh server. The `bundle-compose-app` only would
 starts if there is a *RepoUrl* defined.
 
-The keys ***CredentialType*** and ***CredentialHint*** are treated like described
-for `.bundle-compos.trac.conf`.
+The keys ***CredentialType*** and ***CredentialHint*** are treated as described
+by `.bundle-compos.trac.conf`.
 
 
 Global Config Files for the `bundle-compose-app`
