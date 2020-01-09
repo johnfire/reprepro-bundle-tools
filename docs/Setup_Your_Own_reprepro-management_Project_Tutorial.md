@@ -2,13 +2,13 @@ Setting Up Your Own reprepro-management Project
 ===============================================
 
 There are only few depencencies required to do "repository managment" with reprepro and the reprepro-bundle-tools.
-Depending on your requirements the setup of all services could become complex, but for the first start
-and impressions, the setup is easy. So let's start with the
+Depending on your requirements, the setup of all services could become complex, but for the first start
+and understanding, the setup is easy. So let's start with the
 
 Minimal Setup
 -------------
 
-The basic setup runs on a modern debian based system where *debian stretch* and *ubuntu bionic* are tested.
+The basic setup runs on a modern debian based system where *debian stretch* and *ubuntu bionic* are used.
 If not already available, the following packages have to be installed on your system:
 
     sudo apt install make python3 python3-apt python3-git python3-xdg python3-urllib3 python3-jinja2 reprepro git vim
@@ -18,10 +18,10 @@ would like to use another editor, please ensure that your environment variable E
 points to that editor (and it is installed).
 
 Now let's start with setting up a project for your own "repository management" tasks.
-It is suggested to create a new git repository containing all the configuration for your setup.
-This git repository would keep track about all the changes in your distribution in the long run.
+It is suggested that you create a new git repository containing all the configuration data for your setup.
+This git repository will keep track of all the changes in your distribution in the long run.
 
-These steps would create the git repository for your project and install the required 
+These steps will create the git repository for your project and install the required 
 dependencies, the *reprepro-bundle-tools* and *apt-repos* as git submodules:
 
     git init reprepro-managment
@@ -39,7 +39,7 @@ as a template for that.
 
     cp -a reprepro-bundle-tools/test/.apt-repos/ reprepro-bundle-tools/test/templates/ .
 
-To test if this (unchanged) example run in your environment use `apt-repos/bin/apt-repos -b .apt-repos/ suites` which should output something like:
+To test if this (unchanged) example runs in your environment use `apt-repos/bin/apt-repos -b .apt-repos/ suites` which should output something like:
 
     INFO[apt_repos]: Using basedir '.apt-repos'
     INFO[apt_repos.Repository]: Scanning Repository 'Main Ubuntu Repository' (http://archive.ubuntu.com/ubuntu/)
@@ -57,7 +57,7 @@ If this is given, your setup is ready for maintaining the example suite "mybioni
 *templates* according to your needs. Please use the above apt-repos command again to check that all apt-repositores and suites are defined for your environment.
 
 * Please ensure that all suites used as upstream suites for your distribution are tagged with **"{yourdist}-supplier:"** (in the above example this is *ubuntu:bionic*, *ubuntu:bionic-security* and *ubuntu:bionic-updates*)
-* Also ensure that there are some suites defined and tagged as **"bundle-compose-target:"** which describes the target suites holding your distribution. There are different *bundle-stage* and *bundle-target* attributes possible. With theese attributes it is possible describe the targets (i.g. *plus* and *unattended*) that are responsible for holding bundles that have passed the stages (i.g. *test*, *prod*) in your quality assurance process.
+* Also ensure that there are some suites defined and tagged as **"bundle-compose-target:"** which describes the target suites holding your distribution. There are different *bundle-stage* and *bundle-target* attributes possible. With these attributes it is possible describe the targets (i.g. *plus* and *unattended*) that are responsible for holding bundles that have passed the stages (i.g. *test*, *prod*) in your quality assurance process.
 
 Once your configuration looks reasonable to you, you can commit it:
 
@@ -70,7 +70,7 @@ First Steps
 
 Now that you have done the minimal setup, it's time to do the first steps.
 
-This chapter should be described longer in a different document in future to capture the complete set of possible workflow. By now this is just a rough documentation to get the first steps. For the example we assume that you did use the above example configuration without changes (use your own distribution name if you have changed it).
+This chapter should be described more fully in a different document in future to capture the complete set of possible workflows. for now this is just a rough documentation to get the first steps. For the example we assume that you used the above example configuration without changes (use your own distribution name if you have changed it).
 
 Create your first bundle:
 
@@ -93,7 +93,7 @@ Check the content of your first bundle:
 
     ./bundle ls mybionic/0001
 
-In the example the following output could be expected:
+In the example the following output can be expected:
 
     INFO[bundle]: You are now using bundle 'mybionic/0001'
     INFO[apt_repos]: Using basedir '.apt-repos'
@@ -115,7 +115,7 @@ consist of tree steps:
  3. tests by customers
 
 Getting deeper into each of these steps would be too much for this first tutorial. So let's assume that your
-first bundle has passed all these tests and that is now time to get the bundle productive. This is done
+first bundle has passed all these tests and that is now time to place the bundle in production. This is done
 with the following commands:
 
     ./bundle-compose update-bundles
@@ -123,11 +123,11 @@ with the following commands:
     ./bundle-compose apply
     reprepro -b repo/target update
 
-This should merge the bundle into the productive target suite. Check that everything is fine with
+This should merge the bundle into the production target suite. Check that everything is ok with
 
     ./apt-repos/bin/apt-repos -b .apt-repos ls -s target:mybionic -r .
 
-And that's the expected output for the above command:
+And this is the expected output for the above command:
 
     INFO[apt_repos]: Using basedir '.apt-repos'
     INFO[apt_repos.Repository]: Scanning Repository 'MyBionic-Ziel Repository' (file://{PWD}/repo/target/)
@@ -137,8 +137,8 @@ And that's the expected output for the above command:
     0ad     | 0.0.22-4 | target:mybionic | amd64 | universe/games | 0ad   
     0ad     | 0.0.22-4 | target:mybionic | i386  | universe/games | 0ad   
 
-You can see that the packages are now available in *target:mybionic* which is our productive suite.
-**Gratulation** if you got similar results!
+You can see that the packages are now available in *target:mybionic* which is our production suite.
+**Congratulations** if you got similar results!
 
 *Note:* all the above steps, beginning with the "minimal setup" to these "first steps" were
 successfully tested with a fresh docker container that was just started with 
